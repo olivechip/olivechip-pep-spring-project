@@ -9,6 +9,8 @@ import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
+import java.util.List;
+
 /**
  * TODO: You will need to write your own endpoints and handlers for your
  * controller using Spring. The endpoints you will need can be
@@ -26,8 +28,8 @@ public class SocialMediaController {
     @Autowired
     private AccountService accountService;
 
-    // @Autowired
-    // private MessageService messageService;
+    @Autowired
+    private MessageService messageService;
 
     @PostMapping("/register")
     public ResponseEntity<Account> register(@RequestBody Account newUser) {
@@ -56,17 +58,25 @@ public class SocialMediaController {
         }
     }
 
-    // // should post message
-    // @PostMapping("/messages")
-    // public Message post(@RequestBody Message newMessage) {
+    @PostMapping("/messages")
+    public ResponseEntity<Message> post(@RequestBody Message newMessage) {
+        try {
+            Message postedMessage = messageService.post(newMessage);
+            return ResponseEntity.ok(postedMessage);
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.status(400).build();
+        }   
+    }
 
-    // }
-
-    // // should get all messages
-    // @GetMapping("/messages")
-    // public Message post(@RequestBody Message newMessage) {
-
-    // }
+    @GetMapping("/messages")
+    public ResponseEntity<List<Message>> getAllMessages() {
+        try {
+            List<Message> messages = messageService.getAllMessages();
+            return ResponseEntity.ok(messages);
+        } catch (IllegalArgumentException e){
+            return null;
+        }
+    }
 
     // // should get message by its id
     // @GetMapping("/messages/{messageId}")
