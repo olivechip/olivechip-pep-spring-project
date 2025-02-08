@@ -60,20 +60,23 @@ public class MessageService {
 
     // FIX EMPTY STRING BEING PASSED THROUGH AS A VALID STRING
     public int patchMessageById(int messageId, String messageText) {
+
+        // check that message exists
         if (messageRepository.existsById(messageId)) {
 
+            // check that messageText is not blank or over 255 characters
             if (messageText == null || messageText.isBlank()) {
                 throw new IllegalArgumentException("Message cannot be empty or null");
             }
-
             if (messageText.length() > 255) {
                 throw new IllegalArgumentException("Message cannot exceed 255 characters");
             }
 
+            // update message
             Message message = messageRepository.findById(messageId).get();
             message.setMessageText(messageText);
             messageRepository.save(message);
-
+            
             return 1;
         }
         return 0;

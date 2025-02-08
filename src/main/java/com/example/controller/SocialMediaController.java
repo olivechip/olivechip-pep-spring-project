@@ -107,7 +107,7 @@ public class SocialMediaController {
     public ResponseEntity<?> patchMessageById(@PathVariable int messageId, @RequestBody String messageText) {
         try {
             System.err.println("messageText in controller: " + messageText);
-            Integer rowsAffected = messageService.patchMessageById(messageId, messageText);
+            int rowsAffected = messageService.patchMessageById(messageId, messageText);
             if (rowsAffected == 1) {
                 return ResponseEntity.ok(rowsAffected);
             } else {
