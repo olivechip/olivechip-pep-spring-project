@@ -63,9 +63,9 @@ public class SocialMediaController {
         try {
             Message postedMessage = messageService.post(newMessage);
             return ResponseEntity.ok(postedMessage);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(400).build();
-        }   
+        }
     }
 
     @GetMapping("/messages")
@@ -73,15 +73,31 @@ public class SocialMediaController {
         try {
             List<Message> messages = messageService.getAllMessages();
             return ResponseEntity.ok(messages);
-        } catch (IllegalArgumentException e){
-            return null;
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
-    // // should get message by its id
-    // @GetMapping("/messages/{messageId}")
-    // public Message post(@RequestBody Message newMessage) {
+    @GetMapping("/messages/{messageId}")
+    public ResponseEntity<Message> getMessageById(@PathVariable int messageId) {
+        try {
+            Message message = messageService.getMessageById(messageId);
+            return ResponseEntity.ok(message);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
-    // }
-
+    @DeleteMapping("/messages/{messageId}")
+    public ResponseEntity<?> deleteMessageById(@PathVariable int messageId) {
+        try {
+            Integer rowsDeleted = messageService.deleteMessageById(messageId);
+            if (rowsDeleted == 1) {
+                return ResponseEntity.ok(rowsDeleted);
+            }
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
