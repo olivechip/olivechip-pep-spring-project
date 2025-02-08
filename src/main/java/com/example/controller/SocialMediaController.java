@@ -102,6 +102,7 @@ public class SocialMediaController {
 
     }
 
+    // FIX EMPTY STRING BEING PASSED THROUGH AS A VALID STRING
     @PatchMapping("/messages/{messageId}")
     public ResponseEntity<?> patchMessageById(@PathVariable int messageId, @RequestBody String messageText) {
         try {
