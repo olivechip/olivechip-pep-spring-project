@@ -15,10 +15,10 @@ public class AccountService {
     public Account register(Account newUser) {
 
         // username and password validation
-        if (newUser.getUsername() == null || newUser.getUsername().isBlank()) {
+        if (newUser.getUsername().isBlank()) {
             throw new IllegalArgumentException("Username cannot be blank");
         }
-        if (newUser.getPassword() == null || newUser.getPassword().length() < 4) {
+        if (newUser.getPassword().length() < 4) {
             throw new IllegalArgumentException("Password must be at least 4 characters long");
         }
 
@@ -33,10 +33,10 @@ public class AccountService {
     public Account login(Account user) {
 
         // username and password validation
-        if (user.getUsername() == null || user.getUsername().isBlank()) {
+        if (user.getUsername().isBlank()) {
             throw new IllegalArgumentException("Username cannot be blank");
         }
-        if (user.getPassword() == null || user.getPassword().isBlank()) {
+        if (user.getPassword().isBlank()) {
             throw new IllegalArgumentException("Password cannot be blank");
         }
 

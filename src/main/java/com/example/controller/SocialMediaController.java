@@ -99,5 +99,31 @@ public class SocialMediaController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
         }
+
+    }
+
+    @PatchMapping("/messages/{messageId}")
+    public ResponseEntity<?> patchMessageById(@PathVariable int messageId, @RequestBody String messageText) {
+        try {
+            System.err.println("messageText in controller: " + messageText);
+            Integer rowsAffected = messageService.patchMessageById(messageId, messageText);
+            if (rowsAffected == 1) {
+                return ResponseEntity.ok(rowsAffected);
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/accounts/{accountId}/messages")
+    public ResponseEntity<List<Message>> getAllMessagesByAccountId(@PathVariable int accountId) {
+        try {
+            List<Message> messages = messageService.getAllMessagesByAccountId(accountId);
+            return ResponseEntity.ok(messages);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

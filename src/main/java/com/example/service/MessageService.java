@@ -18,12 +18,12 @@ public class MessageService {
     public Message post(Message newMessage) {
 
         // check message is not blank
-        if (newMessage.getMessageText().isBlank() || newMessage.getMessageText() == null) {
+        if (newMessage.getMessageText().isBlank()) {
             throw new IllegalArgumentException("Message cannot be blank");
         }
 
         // check message is not over 255 char
-        if (newMessage.getMessageText().length() > 255 || newMessage.getMessageText() == null) {
+        if (newMessage.getMessageText().length() > 255) {
             throw new IllegalArgumentException("Message cannot exceed 255 characters");
         }
 
@@ -56,5 +56,29 @@ public class MessageService {
             return 1;
         }
         return 0;
+    }
+
+    public int patchMessageById(int messageId, String messageText) {
+        if (messageRepository.existsById(messageId)) {
+
+            if (messageText == null || messageText.isBlank()) {
+                throw new IllegalArgumentException("Message cannot be empty or null");
+            }
+
+            if (messageText.length() > 255) {
+                throw new IllegalArgumentException("Message cannot exceed 255 characters");
+            }
+
+            Message message = messageRepository.findById(messageId).get();
+            message.setMessageText(messageText);
+            messageRepository.save(message);
+
+            return 1;
+        }
+        return 0;
+    }
+
+    public List<Message> getAllMessagesByAccountId(int accountId) {
+        return messageRepository.getAllMessagesByAccountId(accountId);
     }
 }

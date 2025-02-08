@@ -86,12 +86,12 @@ As a User, I should be able to submit a DELETE request on the endpoint DELETE lo
 - The deletion of an existing message should remove an existing message from the database. If the message existed, the response body should contain the number of rows updated (1). The response status should be 200, which is the default.
 - If the message did not exist, the response status should be 200, but the response body should be empty. This is because the DELETE verb is intended to be idempotent, ie, multiple calls to the DELETE endpoint should respond with the same type of response.
 
-## 7: Our API should be able to update a message text identified by a message ID.
+<!-- ## 7: Our API should be able to update a message text identified by a message ID.
 
 As a user, I should be able to submit a PATCH request on the endpoint PATCH localhost:8080/messages/{messageId}. The request body should contain a new messageText values to replace the message identified by messageId. The request body can not be guaranteed to contain any other information.
 
 - The update of a message should be successful if and only if the message id already exists and the new messageText is not blank and is not over 255 characters. If the update is successful, the response body should contain the number of rows updated (1), and the response status should be 200, which is the default. The message existing on the database should have the updated messageText.
-- If the update of the message is not successful for any reason, the response status should be 400. (Client error)
+- If the update of the message is not successful for any reason, the response status should be 400. (Client error) -->
 
 ## 8: Our API should be able to retrieve all messages written by a particular user.
 
