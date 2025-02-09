@@ -104,10 +104,10 @@ public class SocialMediaController {
 
     // FIX EMPTY STRING BEING PASSED THROUGH AS A VALID STRING
     @PatchMapping("/messages/{messageId}")
-    public ResponseEntity<?> patchMessageById(@PathVariable int messageId, @RequestBody String messageText) {
+    public ResponseEntity<?> patchMessageById(@PathVariable int messageId, @RequestBody Message message) {
         try {
-            System.err.println("messageText in controller: " + messageText);
-            int rowsAffected = messageService.patchMessageById(messageId, messageText);
+            System.err.println("message in controller: " + message);
+            int rowsAffected = messageService.patchMessageById(messageId, message.getMessageText());
             if (rowsAffected == 1) {
                 return ResponseEntity.ok(rowsAffected);
             } else {

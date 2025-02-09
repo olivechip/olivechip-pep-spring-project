@@ -58,7 +58,6 @@ public class MessageService {
         return 0;
     }
 
-    // FIX EMPTY STRING BEING PASSED THROUGH AS A VALID STRING
     public int patchMessageById(int messageId, String messageText) {
 
         // check that message exists
